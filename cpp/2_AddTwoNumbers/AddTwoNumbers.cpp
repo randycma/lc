@@ -42,37 +42,19 @@ class Solution
 public:
 	ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
 	{
-		ListNode* result = 0;
-		ListNode* resultP = 0;
+		ListNode* result = new ListNode(0); // dummy head
+		ListNode* curr = result;
 		int carry = 0;
-		while (l1 || l2 || carry)
+		while (l1 || l2)
 		{
-			int digit = carry;
-			if (l1)
-				digit += l1->val;
-			if (l2)
-				digit += l2->val;
+			int a = l1 ? l1->val : 0;
+			int b = l2 ? l2->val : 0;
+			int sum = carry + a + b;
 
-			if (digit >= 10)
-			{
-				carry = 1;
-			}
-			else
-			{
-				carry = 0;
-			}
+			carry = sum / 10;
 
-			digit %= 10;
-			if (result)
-			{
-				resultP->next = new ListNode(digit);
-				resultP = resultP->next;
-			}
-			else
-			{
-				result = new ListNode(digit);
-				resultP = result;
-			}
+			curr->next = new ListNode(sum % 10);
+			curr = curr->next;
 
 			if (l1)
 				l1 = l1->next;
@@ -80,7 +62,12 @@ public:
 				l2 = l2->next;
 		}
 
-		return result;
+		if(carry > 0)
+		{
+			curr->next = new ListNode(carry);
+		}
+
+		return result->next; // first node is dummy
 	}
 };
 
