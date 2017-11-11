@@ -22,6 +22,7 @@ Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer 
 #include <string>
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -30,36 +31,27 @@ public:
     int lengthOfLongestSubstring(string s) {
         int longestLength = 0;
 
-        std::unordered_set<int> lettersSeen;
-        string::iterator it = s.begin();
-        string::iterator it2 = s.begin();
-        int len = 0;
+        std::unordered_map<int,int> letterSeenToIdx;
+        int i = 0;
+        int j = 0;
 
-        for(; it != s.end(); ++it)
+        for(; j < s.size(); ++j)
         {
-        	if(lettersSeen.find(*it2) == lettersSeen.end())
+        	if(letterSeenToIdx.find(s[j]) != letterSeenToIdx.end())
         	{
-        		// continue searching
-        		while(it2 != s.end() && lettersSeen.find(*it2) == lettersSeen.end())
-				{
-					lettersSeen.insert(*it2);
-					++len;
-					++it2;
-				}
-
-        		// exited due to duplicate or end of string. check if longer than current longest
-        		if(len > longestLength)
+        		// letter already seen, check to see if it's before or after i
+        		if(letterSeenToIdx[s[j]] >= i)
         		{
-        			longestLength = len;
+        			i = letterSeenToIdx[s[j]] + 1;
         		}
-
-
         	}
 
-			// remove letter at first pointer from set, decrement length.
-			--len;
-			lettersSeen.erase(*it);
-			continue;
+        	letterSeenToIdx[s[j]] = j;
+
+        	if( (j-i + 1) > longestLength)
+        	{
+        		longestLength = j-i + 1;
+        	}
         }
         return longestLength;
     }
@@ -67,9 +59,10 @@ public:
 
 
 
+
 int main()
 {
-	std::string str("abcabcbbnauewb");
+	std::string str("abca");
 	Solution s;
 	cout << "Longest substring for " << str << " is " << s.lengthOfLongestSubstring(str) << std::endl;
 	return 0;
