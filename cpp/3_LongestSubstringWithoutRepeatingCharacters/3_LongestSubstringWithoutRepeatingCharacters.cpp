@@ -35,18 +35,21 @@ public:
         int i = 0;
         int j = 0;
 
+        // use i and j to mark longest substring currently seen
+
         for(; j < s.size(); ++j)
         {
-        	if(letterSeenToIdx.find(s[j]) != letterSeenToIdx.end())
+        	auto it = letterSeenToIdx.find(s[j]);
+        	if(it != letterSeenToIdx.end())
         	{
-        		// letter already seen, check to see if it's before or after i
-        		if(letterSeenToIdx[s[j]] >= i)
+        		// letter already seen, check to see if it's inside our current substring
+        		if(it->second >= i)
         		{
-        			i = letterSeenToIdx[s[j]] + 1;
+        			i = it->second + 1;
         		}
         	}
 
-        	letterSeenToIdx[s[j]] = j;
+        	letterSeenToIdx[s[j]] = j; // update last seen
 
         	if( (j-i + 1) > longestLength)
         	{
