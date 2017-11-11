@@ -3,32 +3,23 @@ public class PalindromePermutation {
 
 	public static boolean palindromePermutation(String s)
 	{
-		int count[] = new int['z'-'a'+1];
-		
-		int countOdd = 0;
+		// 0 means even number of occurrences (including 0), and 1 means odd number of occurrences
+		int bitMask = 0; 
 		for (Character c : s.toLowerCase().toCharArray())
 		{
 			if(c <= 'z' && c >= 'a')
 			{
-				++count[c-'a']; // ignores everything that's not in alphabet (whitespace, numbers, etc.)
-				if(count[c-'a'] % 2 == 1) // is odd
-				{
-					++countOdd;
-				}
-				else
-				{
-					--countOdd;
-				}
+				int val = c-'a';
+				bitMask ^= (1 << (val));
 			}
 		}
 		
-		// if countOdd is 0 or 1, then we return true
-		return countOdd <= 1;
+		// check that exactly 0  bits are set or exactly 1 bit is set.
+		return (bitMask == 0) || (bitMask & (bitMask - 1)) == 0;
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(palindromePermutation("abbba"));
-
+		System.out.println(palindromePermutation("hbah"));
 	}
 
 }
