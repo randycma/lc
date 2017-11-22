@@ -11,7 +11,7 @@ Release/
 
 *~.nib
 local.properties
-.settings/
+#.settings/
 .loadpath
 .recommenders
 
