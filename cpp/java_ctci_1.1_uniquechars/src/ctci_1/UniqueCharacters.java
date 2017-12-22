@@ -3,7 +3,6 @@
  */
 package ctci_1;
 
-import java.security.AllPermission;
 import java.util.HashSet;
 
 /**
