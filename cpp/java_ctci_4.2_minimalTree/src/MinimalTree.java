@@ -9,35 +9,31 @@ public class MinimalTree {
 			return null;
 		}
 		
-		BSTNode<Integer> root = new BSTNode<Integer>(Integer.MIN_VALUE);
-		
-		minimalTreeHelper(arr, 0, arr.length, root);
-		
-		return root;
+		return helper(arr, 0, arr.length);
 	}
 	
-	public static void minimalTreeHelper(int[] arr, int leftIdx, int rightIdx, BSTNode<Integer> node)
+	public static BSTNode<Integer> helper(int[] arr, int leftIdx, int rightIdx)
 	{
-		// Find midpt
 		int midIdx = (rightIdx + leftIdx) / 2;
-		node.data = arr[midIdx];
+		BSTNode<Integer> node = new BSTNode<Integer>(arr[midIdx]);
 		
 		if(midIdx - leftIdx > 0)
 		{
-			node.left = new BSTNode<Integer>(Integer.MIN_VALUE);
-			minimalTreeHelper(arr, leftIdx, midIdx, node.left);
+			node.left = helper(arr, leftIdx, midIdx);
 		}
 		
 		if(rightIdx - (midIdx + 1) > 0)
 		{
-			node.right = new BSTNode<Integer>(Integer.MIN_VALUE);
-			minimalTreeHelper(arr, midIdx + 1, rightIdx, node.right);			
+			node.right = helper(arr, midIdx + 1, rightIdx);			
 		}
+		
+		return node;
 	}
 
 	public static void main(String[] args) 
 	{
-		BSTNode<Integer> root = minimalTree(new int[] {1,2,3,4,5,6,7,8,9,10,11,12});
+		// BSTNode<Integer> root = minimalTree(new int[] {1,2,3,4,5,6,7,8,9,10,11,12});
+		BSTNode<Integer> root = minimalTree(new int[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, 100});
 		BSTNode.printNode(root);
 	}
 
