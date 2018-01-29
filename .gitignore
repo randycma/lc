@@ -1,20 +1,19 @@
+
+# Created by https://www.gitignore.io/api/eclipse
+
+### Eclipse ###
+
 .metadata
-#.project
-#.classpath
 bin/
 tmp/
 *.tmp
 *.bak
 *.swp
-Debug/
-Release/
-
 *~.nib
 local.properties
-#.settings/
+.settings/
 .loadpath
 .recommenders
-
 
 # External tool builders
 .externalToolBuilders/
@@ -53,3 +52,13 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+### Eclipse Patch ###
+# Eclipse Core		
+.project
+
+# JDT-specific (Eclipse Java Development Tools)		
+.classpath
+
+
+# End of https://www.gitignore.io/api/eclipse
