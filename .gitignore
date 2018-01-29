@@ -26,6 +26,8 @@ local.properties
 
 # CDT-specific (C/C++ Development Tooling)
 .cproject
+*.o
+*.exe
 
 # Java annotation processor (APT)
 .factorypath
